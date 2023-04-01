@@ -182,7 +182,7 @@ macro_rules! impl_eeprom_common {
                         // Now we know that _some_ bits need to be erased to '1'.
 
                         // Check if any bits in the new value are '0'.
-                        if data != 0xff {
+                        // if data != 0xff {
                             // Now we know that some bits need to be programmed to '0' also.
                             self.eedr.write(|w| w.bits(data)); // Set EEPROM data register.
 
@@ -191,14 +191,14 @@ macro_rules! impl_eeprom_common {
                                 $set_erasewrite_mode
                             }
                             self.eecr.write(|w| w.eepe().set_bit()); // Start Erase+Write operation.
-                        } else {
-                            // Now we know that all bits should be erased.
-                            {
-                                let $periph_emode_var = &self;
-                                $set_erase_mode
-                            }
-                            self.eecr.write(|w| w.eepe().set_bit()); // Start Erase-only operation.
-                        }
+                        // } else {
+                        //     // Now we know that all bits should be erased.
+                        //     {
+                        //         let $periph_emode_var = &self;
+                        //         $set_erase_mode
+                        //     }
+                        //     self.eecr.write(|w| w.eepe().set_bit()); // Start Erase-only operation.
+                        // }
                     }
                     //Now we know that _no_ bits need to be erased to '1'.
                     else {
